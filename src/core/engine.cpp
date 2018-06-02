@@ -15,7 +15,7 @@
 #include "structs.h"
 #include "util.h"
 
-#include <QApplication>
+#include <QCoreApplication>
 #include <QDebug>
 #include <QDir>
 #include <QFile>

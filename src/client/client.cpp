@@ -1,8 +1,6 @@
 #include "client.h"
 #include "CardFace.h"
-#include "SkinBank.h"
 #include "audio.h"
-#include "choosegeneraldialog.h"
 #include "engine.h"
 #include "general.h"
 #include "nativesocket.h"
@@ -10,6 +8,11 @@
 #include "settings.h"
 #include "util.h"
 
+#include <QTextCursor>
+#include <QTextDocument>
+#include <QTimer>
+
+#if 0
 #include <QApplication>
 #include <QCheckBox>
 #include <QCommandLinkButton>
@@ -20,9 +23,6 @@
 #include <QRandomGenerator>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
-#include <QTextCursor>
-#include <QTextDocument>
-#include <QTimer>
 #include <QVBoxLayout>
 #include <chrono>
 
@@ -416,7 +416,7 @@ void Client::setup(const QVariant &setup_str)
 
         notifyServer(S_COMMAND_TOGGLE_READY);
     } else {
-        QMessageBox::warning(nullptr, tr("Warning"), tr("Setup string can not be parsed"));
+        // QMessageBox::warning(nullptr, tr("Warning"), tr("Setup string can not be parsed"));
     }
 }
 
@@ -1608,7 +1608,7 @@ void Client::warn(const QVariant &reason_var)
         msg = tr("Unknown warning: %1").arg(reason);
 
     disconnectFromHost();
-    QMessageBox::warning(nullptr, tr("Warning"), msg);
+    // QMessageBox::warning(nullptr, tr("Warning"), msg);
 }
 
 void Client::askForGeneral(const QVariant &arg)
@@ -1906,8 +1906,8 @@ void Client::onPlayerChooseAG(int card_id)
 
 void Client::alertFocus()
 {
-    if (Self->phase() == QSanguosha::PhasePlay)
-        QApplication::alert(QApplication::focusWidget());
+    // if (Self->phase() == QSanguosha::PhasePlay)
+    //        QApplication::alert(QApplication::focusWidget());
 }
 
 void Client::showCard(const QVariant &show_str)
@@ -2335,6 +2335,7 @@ void Client::revealGeneral(const QVariant &reveal)
 
 void Client::onPlayerChooseOrder()
 {
+#if 0
     OptionButton *button = qobject_cast<OptionButton *>(sender());
     QString order;
     if (button != nullptr) {
@@ -2345,6 +2346,7 @@ void Client::onPlayerChooseOrder()
         else
             order = QStringLiteral("cool");
     }
+#endif
     int req = (int)S_CAMP_COOL;
     if (order == QStringLiteral("warm"))
         req = (int)S_CAMP_WARM;

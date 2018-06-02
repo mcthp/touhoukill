@@ -3,7 +3,7 @@
 
 #include "global.h"
 
-#include <QDialog>
+// #include <QDialog>
 #include <QObject>
 #include <QSet>
 

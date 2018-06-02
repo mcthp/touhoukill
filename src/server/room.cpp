@@ -16,7 +16,6 @@
 #include <QElapsedTimer>
 #include <QFile>
 #include <QHostAddress>
-#include <QMessageBox>
 #include <QMetaEnum>
 #include <QStringList>
 #include <QTextStream>
@@ -6842,7 +6841,6 @@ void Room::countDescription()
 
     QTextStream stream(&file);
     QStringList all = Sanguosha->getLimitedGeneralNames();
-
     QMultiMap<int, QString> map;
     foreach (QString name, all) {
         const General *gen = Sanguosha->getGeneral(name);
@@ -6871,7 +6869,6 @@ void Room::countDescription()
     stream << count;
     file.close();
 }
-
 void Room::transformGeneral(ServerPlayer *player, const QString &general_name, int head)
 {
 #if 0
@@ -6889,7 +6886,6 @@ void Room::transformGeneral(ServerPlayer *player, const QString &general_name, i
             thread->addTrigger(trigger);
         player->addSkill(skill->objectName(), head != 0);
     }
-
     if (head != 0) {
         changePlayerGeneral(player, QStringLiteral("anjiang"));
         notifyProperty(player, player, "general", general_name);

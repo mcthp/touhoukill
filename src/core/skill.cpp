@@ -150,9 +150,9 @@ Skill::ShowType Skill::getShowType() const
 }
 
 const QString &Skill::limitMark() const
-{
+//{
     return d->limit_mark;
-}
+//}
 
 void Skill::setLimitMark(const QString &m)
 {
