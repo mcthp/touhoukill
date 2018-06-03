@@ -47,9 +47,9 @@ public:
     void addPackage(const Package *package);
     void addBanPackage(const QString &package_name);
     QStringList getBanPackages() const;
-    QString getVersionNumber() const;
-    QString getVersion() const;
-    QString getVersionName() const;
+    Q_INVOKABLE QString getVersionNumber() const;
+    Q_INVOKABLE QString getVersion() const;
+    Q_INVOKABLE QString getVersionName() const;
     QVersionNumber getQVersionNumber() const;
     QString getMODName() const;
     QStringList getExtensions() const;
