@@ -5,9 +5,12 @@
 
 #include <QCoreApplication>
 #include <QDateTime>
+#include <QDebug>
 #include <QFile>
 #include <QFontDatabase>
 #include <QGlobalStatic>
+#include <QJSEngine>
+#include <QJSValue>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QNetworkInterface>
@@ -28,6 +31,30 @@ const int Settings::S_SERVER_TIMEOUT_GRACIOUS_PERIOD = 1000;
 const int Settings::S_MOVE_CARD_ANIMATION_DURATION = 600;
 const int Settings::S_JUDGE_ANIMATION_DURATION = 1200;
 const int Settings::S_JUDGE_LONG_DELAY = 800;
+
+QJSValue Settings::jsValue(const QString &key, const QJSValue &defaultValue)
+{
+    if (contains(key)) {
+        qDebug(value(key).typeName());
+        qDebug(value(key).toString().toLocal8Bit().constData());
+        if (value(key).type() == QMetaType::Bool) {
+            qDebug("%s: %s", key.toLocal8Bit().constData(), value(key).toBool() ? "true" : "false");
+        }
+
+        return defaultValue.engine()->toScriptValue(value(key));
+    } else
+        return defaultValue;
+}
+
+void Settings::setJsValue(const QString &key, const QJSValue &value)
+{
+    qDebug(value.toVariant().typeName());
+    if (value.toVariant().type() == QMetaType::Bool) {
+        qDebug("%s: %s", key.toLocal8Bit().constData(), value.toVariant().toBool() ? "true" : "false");
+    }
+    setValue(key, value.toVariant());
+    
+}
 
 namespace {
 bool JsonReadFunc(QIODevice &device, QSettings::SettingsMap &map)

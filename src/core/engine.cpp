@@ -880,14 +880,3 @@ void Engine::unregisterCardFace(const QString &name)
         delete handle;
     }
 }
-
-#include <QtQml>
-
-namespace {
-void registerEngine()
-{
-    qmlRegisterUncreatableType<Engine, 1>("QSanguosha.Engine", 1, 0, "", "Use global Sanguosha variable instead");
-}
-}
-
-Q_COREAPP_STARTUP_FUNCTION(registerEngine)
