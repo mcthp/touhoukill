@@ -23,6 +23,7 @@
 #include <QRegularExpressionMatchIterator>
 #include <QStringList>
 #include <QTextStream>
+#include <QUrl>
 #include <QVersionNumber>
 
 #include <random>
@@ -349,6 +350,14 @@ QString Engine::getVersion() const
 QString Engine::getVersionName() const
 {
     return QStringLiteral("V" QT_STRINGIFY(VERSION));
+}
+
+QUrl Engine::getUrl(const QString &str) const
+{
+    qDebug(QDir::currentPath().toLocal8Bit().constData());
+    qDebug(str.toLocal8Bit().constData());
+
+    return QUrl::fromLocalFile(QDir().absoluteFilePath(str));
 }
 
 QVersionNumber Engine::getQVersionNumber() const

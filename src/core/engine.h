@@ -50,6 +50,7 @@ public:
     Q_INVOKABLE QString getVersionNumber() const;
     Q_INVOKABLE QString getVersion() const;
     Q_INVOKABLE QString getVersionName() const;
+    Q_INVOKABLE QUrl getUrl(const QString &str) const;
     QVersionNumber getQVersionNumber() const;
     QString getMODName() const;
     QStringList getExtensions() const;
