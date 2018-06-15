@@ -337,22 +337,22 @@ const CardDescriptor &Engine::getEngineCard(int cardId) const
     }
 }
 
-QString Engine::getVersionNumber() const
+QString Engine::getVersionNumber()
 {
     return QStringLiteral(QT_STRINGIFY(VERSIONNUMBER));
 }
 
-QString Engine::getVersion() const
+QString Engine::getVersion()
 {
     return QStringLiteral("%1:%2").arg(getVersionNumber(), getMODName());
 }
 
-QString Engine::getVersionName() const
+QString Engine::getVersionName()
 {
     return QStringLiteral("V" QT_STRINGIFY(VERSION));
 }
 
-QUrl Engine::getUrl(const QString &str) const
+QUrl Engine::getUrl(const QString &str)
 {
     qDebug(QDir::currentPath().toLocal8Bit().constData());
     qDebug(str.toLocal8Bit().constData());
@@ -360,12 +360,12 @@ QUrl Engine::getUrl(const QString &str) const
     return QUrl::fromLocalFile(QDir().absoluteFilePath(str));
 }
 
-QVersionNumber Engine::getQVersionNumber() const
+QVersionNumber Engine::getQVersionNumber()
 {
     return QVersionNumber::fromString(QStringLiteral(QT_STRINGIFY(VERSION)));
 }
 
-QString Engine::getMODName() const
+QString Engine::getMODName()
 {
     return QStringLiteral("TouhouSatsu");
 }

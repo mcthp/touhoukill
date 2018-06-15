@@ -42,17 +42,18 @@ public:
 
     void loadTranslations(const QString &locale);
     void addTranslationEntry(const QString &key, const QString &value);
+    Q_INVOKABLE static QString getVersionName();
+    Q_INVOKABLE static QString getMODName();
+    static QVersionNumber getQVersionNumber();
+
+    Q_INVOKABLE static QUrl getUrl(const QString &str);
+
     QString translate(const QString &to_translate) const;
 
     void addPackage(const Package *package);
     void addBanPackage(const QString &package_name);
     QStringList getBanPackages() const;
-    Q_INVOKABLE QString getVersionNumber() const;
-    Q_INVOKABLE QString getVersion() const;
-    Q_INVOKABLE QString getVersionName() const;
-    Q_INVOKABLE QUrl getUrl(const QString &str) const;
-    QVersionNumber getQVersionNumber() const;
-    QString getMODName() const;
+
     QStringList getExtensions() const;
     QStringList getKingdoms() const;
     QStringList getHegemonyKingdoms() const;
