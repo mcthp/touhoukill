@@ -33,6 +33,13 @@ public:
 #endif
 #endif
 
+enum GuanxingType
+{
+    GuanxingUpOnly = 1,
+    GuanxingBothSides = 0,
+    GuanxingDownOnly = -1
+};
+
 enum Suit
 {
     Spade,
