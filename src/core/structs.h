@@ -11,6 +11,7 @@
 #include <QString>
 #include <QStringList>
 #include <QVariant>
+#include <QSharedPointer>
 
 class Skill;
 class RoomObject;
@@ -408,14 +409,10 @@ private:
 #endif
 };
 
-<<<<<<< HEAD
-struct QSGS_CORE_EXPORT HpLostStruct
-=======
 // For convenience.
 using TriggerDetailPtr = QSharedPointer<TriggerDetail>;
 
-struct HpLostStruct
->>>>>>> dda7f99a (RpcApi: Request)
+struct QSGS_CORE_EXPORT HpLostStruct
 {
     explicit HpLostStruct(Player *player = nullptr, int num = 1);
 
