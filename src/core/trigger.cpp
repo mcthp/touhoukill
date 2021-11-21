@@ -3,6 +3,7 @@
 #include "RoomObject.h"
 #include "card.h"
 #include "player.h"
+#include "skill.h"
 #include "structs.h"
 #include "util.h"
 
@@ -33,7 +34,7 @@ Trigger::~Trigger()
 TriggerEvents Trigger::triggerEvents() const
 {
     if (d->e.contains(NumOfEvents))
-        return TriggerEvents() << NumOfEvents;
+        return {NumOfEvents};
 
     return d->e;
 }
@@ -41,7 +42,6 @@ TriggerEvents Trigger::triggerEvents() const
 bool Trigger::canTrigger(TriggerEvent e) const
 {
     Q_ASSERT(e != NumOfEvents);
-
     return d->e.contains(NumOfEvents) || d->e.contains(e);
 }
 
@@ -88,8 +88,7 @@ int Rule::priority() const
 
 QList<TriggerDetail> Rule::triggerable(TriggerEvent /*event*/, RoomObject *room, const QVariant & /*data*/) const
 {
-    TriggerDetail d(room, this);
-    return QList<TriggerDetail>() << d;
+    return {TriggerDetail(room, this)};
 }
 
 class SkillTriggerPrivate
@@ -97,6 +96,13 @@ class SkillTriggerPrivate
 public:
     QString name;
 };
+
+SkillTrigger::SkillTrigger(Skill *skill)
+    : d(new SkillTriggerPrivate)
+{
+    skill->addTrigger(this);
+    d->name = skill->objectName();
+}
 
 SkillTrigger::SkillTrigger(const QString &name)
     : d(new SkillTriggerPrivate)
@@ -150,8 +156,8 @@ bool SkillTrigger::cost(TriggerEvent /*unused*/, RoomObject * /*unused*/, Trigge
     return invoke;
 }
 
-EquipSkillTrigger::EquipSkillTrigger(const QString &name)
-    : SkillTrigger(name)
+EquipSkillTrigger::EquipSkillTrigger(const EquipCard *card)
+    : SkillTrigger(card->name())
 {
 }
 
