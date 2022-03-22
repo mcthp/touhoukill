@@ -9,16 +9,17 @@ pudu_skill.getTurnUseCard = function(self)
 	if self.player:getHp()>3 or self.player:getLostHp() < 1 then
 		can=true
 	elseif self.player:getHp()==1   then
-		local value = self:getCardsNum("Analeptic")+self:getCardsNum("Peach")
-		if self.player:hasSkill("jiushu") and value>0 then
-			value = value+2
-		end
-		if self:getCardsNum("Jink")>0 then
-			value = value+1
-		end
-		if value>=2 then
-			can=true
-		end
+		-- local value = self:getCardsNum("Analeptic")+self:getCardsNum("Peach")
+		-- if self.player:hasSkill("jiushu") and value>0 then
+		-- 	value = value+2
+		-- end
+		-- if self:getCardsNum("Jink")>0 then
+		-- 	value = value+1
+		-- end
+		-- if value>=2 then
+		-- 	can=true
+		-- end
+		can=true
 	end
 	if can then
 		return sgs.Card_Parse("@PuduCard=.")

@@ -239,9 +239,9 @@ bool isXijianPairs(const Player *target1, const Player *target2)
 {
     if (target1 == target2)
         return false;
-    if (!target1->inMyAttackRange(target2) && !target2->inMyAttackRange(target1))
+    // if (!target1->inMyAttackRange(target2) && !target2->inMyAttackRange(target1))
         return checkXijianMove(target1, target2);
-    return false;
+
 }
 
 bool checkXijianMove(const Player *src, const Player *dist)
@@ -1142,12 +1142,14 @@ public:
         CardsMoveStruct move(list, nullptr, Player::PlaceTable, CardMoveReason(CardMoveReason::S_REASON_TURNOVER, invoke->invoker->objectName(), objectName(), QString()));
         room->moveCardsAtomic(move, true);
 
-        QList<int> able;
+        QList<int> able1;
+        QList<int> able2;
         QList<int> disabled;
         foreach (int id, list) {
             Card *tmp_card = Sanguosha->getCard(id);
             if (tmp_card->isKindOf("EquipCard")) {
-                able << id;
+
+                able1<< id;
             } else {
                 foreach (const Card *c, player->getCards("e")) {
                     if (c->getSuit() == tmp_card->getSuit()) {
@@ -1156,23 +1158,30 @@ public:
                     }
                 }
                 if (!disabled.contains(id))
-                    able << id;
+                    able2<< id;
             }
         }
         room->fillAG(list, nullptr, disabled);
         int obtainId = -1;
-        if (able.length() > 0) {
-            obtainId = room->askForAG(player, able, true, objectName());
+        if (able1.length() > 0) {
+            obtainId = room->askForAG(player, able1, true, objectName());
             if (obtainId > -1)
                 room->obtainCard(player, obtainId, true);
+                list.removeOne(obtainId);
+        }
+        if (able2.length() > 0) {
+            obtainId = room->askForAG(player, able2, true, objectName());
+            if (obtainId > -1)
+                room->obtainCard(player, obtainId, true);
+                list.removeOne(obtainId);
         }
 
         room->getThread()->delay(1000);
         room->clearAG();
 
         //throw other cards
-        if (obtainId > -1)
-            list.removeOne(obtainId);
+      
+            
         if (!list.isEmpty()) {
             CardMoveReason reason(CardMoveReason::S_REASON_NATURAL_ENTER, invoke->invoker->objectName(), objectName(), QString());
             DummyCard dummy(list);

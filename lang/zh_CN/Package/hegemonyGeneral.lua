@@ -375,6 +375,10 @@ return
 	[":banyue_hegemony"]= "<font color=\"green\"><b>出牌阶段限一次，</b></font>你可以选择两名阵营不同的角色并失去1点体力，视为其中一名对另一名角色使用【远交近攻】。",
 	["juxian_hegemony"]= "具现",
 	[":juxian_hegemony"]= "<font color=\"red\"><b>限定技，</b></font>当你进入濒死状态时，你可以亮出牌堆顶的三张牌并获得之，然后你回复x点体力（x为其中的花色数）。",
+	["jiaoyi_hegemony"]= "交易",
+	[":jiaoyi_hegemony"]= "<font color=\"red\"><b>限定技，</b></font>当你进入濒死状态时，你可以亮出牌堆顶的三张牌并获得之，然后你回复x点体力（x为其中的花色数）。",
+	["xiwang_hegemony"]= "希望",
+	[":xiwang_hegemony"]= "<font color=\"red\"><b>限定技，</b></font>当你进入濒死状态时，你可以亮出牌堆顶的三张牌并获得之，然后你回复x点体力（x为其中的花色数）。",
 	["$juxianAnimate"]= "skill=daiyousei:juxian",
 	
 	["renko_hegemony"] = "宇佐见莲子",

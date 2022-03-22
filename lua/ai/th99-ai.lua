@@ -112,6 +112,48 @@ function SmartAI:dangjiaIntention(player)
 	end
 end
 
+
+--希望
+sgs.ai_skill_invoke.xiwang_hegemony = function(self,data)
+	if #self.friends_noself>0 then
+		return true
+	end
+	return false
+end
+
+
+sgs.ai_skill_playerchosen["xiwang_hegemony"] = function(self, data, pattern, target)
+	if #self.friends_noself>0 then
+		 target = self.friends[1]
+		return target
+	end
+	return nil
+end
+
+-- 交易
+sgs.ai_skill_invoke.jiaoyi_hegemony = function(self,data)
+	local source = self.room:findPlayerBySkillName("jiaoyi_hegemony")
+	return source and self:isFriend(source)
+end
+-- sgs.ai_choicemade_filter.skillInvoke.jiaoyi_hegemony = function(self, player, args)
+-- 	local source = self.room:findPlayerBySkillName("jiaoyi_hegemony")
+-- 	if source and args[#args] == "yes" then
+-- 		sgs.updateIntention(player, source, -30)
+-- 	end
+-- end
+-- sgs.ai_skill_cardask["@jiaoyi_hegemony"] = function(self, data, pattern, target)
+-- 	local source = self.room:findPlayerBySkillName("jiaoyi_hegemony")
+-- 	if self:isFriend(source) then
+-- 		local handcards = sgs.QList2Table(self.player:getHandcards())
+-- 		if #handcards==0 then return "." end
+-- 		self:sortByUseValue(handcards)
+-- 		return "$" .. handcards[1]:getId()
+-- 	end
+-- 	return "."
+-- end
+
+
+
 --森近霖之助
 --[修复]
 function choose_xiufuId(self, card_ids)

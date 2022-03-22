@@ -1,40 +1,104 @@
-Open Source Sanguosha
-==========
+自用国战修改版
 
-| Homepage:      | https://qsanguosha.org                        |
-|----------------|-----------------------------------------------|
-| API reference: | http://gaodayihao.github.com/QSanguosha/api   |
-| Documentation: | https://github.com/gaodayihao/QSanguosha/wiki (Chinese) |
+修改下不想选的角色
 
-Introduction (By Moligaloo)
-----------
+### v0.0.1
 
-Sanguosha is both a popular board game and online game,
-this project try to clone the Sanguosha online version.
-The whole project is written in C++, 
-using Qt's graphics view framework as the game engine.
-I've tried many other open source game engines, 
-such as SDL, HGE, Clanlib and others, 
-but many of them lack some important features. 
-Although Qt is an application framework instead of a game engine, 
-its graphics view framework is suitable for my game developing.
+**灵梦**
 
-Features
-----------
+主 => 春
 
-1. Framework
-    * Open source with Qt graphics view framework
-    * Use FMOD as sound engine
-    * Use plib as joystick backend 
-    * Use Lua as AI script
+同诘: +每阶段限一次
 
-2. Operation experience
-    * Full package (include all yoka extension package)
-    * Drag card to target to use card
-    * Keyboard shortcut
-    * Cards sorting (by card type and card suit)
-    * Multilayer display when cards are more than an upperlimit
+**魔理沙**
 
-3. Extensible
-    * Some MODs are available based on this game
+主 => 夏
 
+**大狸子**
+
+**戏画: **当你需要使用/打出任意基本牌或 **除[无懈可击]** 外任意普通锦囊牌时
+
+**白莲**
+
+普渡: 你失去 1 点体力 => 如果你的体力值大于一,则失去 1 点体力。
+
+**娜兹玲**
+
+**寻宝: =>锁定技 **你观看牌堆底的 **两** 张牌并可以获得其中的一张与此牌花色相同的牌 => 你可以观看牌堆底的 **一张牌,如果其与此牌颜色相同,你获得之**
+
+**布都**
+
+风水: 当判定开始前 ~**或有角色进入濒死状态时**~
+
+**响子**
+
+体力 **3** => **4**
+
+**秦心**
+
++希望: 回合结束时，若场上没有希望，则你可以将一张手牌置于其他角色人物牌旁，称为“希望”；拥有“希望”的角色濒死时，其可以将“希望”交给你，视为使用一张【桃】;拥有"希望"的角色体力上限+1
+
+**露娜**
+
+寂静: 当其他角色于其回合内造成伤害后 => 当其他 **阵营** 角色于其回合内造成伤害后 & +每阶段限 x 次(x 为存活角色数/2)
+
+**斯塔**
+
+独避: 你可以~~失去 1 点体力~~受到 1 点无来源的伤害
+
+**帕秋莉**
+
+博览 =>锁定技
+
+**咲夜**
+
+锁定: **出牌阶段限一次，**你可以将一名角色的一张手牌扣置于其人物牌旁，称为“锁定”， ~然后你可以重复以上流程至多两次，且此回合结束时，~ 以此法失去牌的角色获得其人物牌旁的“锁定”。 => **出牌阶段限两次，**你可以将一名角色的一张手牌扣置于其人物牌旁，称为“锁定”，以此法失去牌的角色 **回合开始时**获得其人物牌旁的“锁定”。
+
+**芙兰**
+
+盛宴 =>锁定技
+
+**露米娅**
+
+暗域: 当你受到 ~黑色牌造成的~ 伤害后
+
+**米斯蒂娅**
+
+夜歌 : 你以此法使用 ~~♦ 牌~~ 红色牌时
+
+**神奈子**
+
+体力 4 => 5
+
+**荷取**
+
+心伤: 令你 ~依次弃置其两~ 获得其一张牌
+
+**犬走椛**
+**布局: **你可以摸 X 张牌（X 为角色数且至多为 4），然后将 X 张牌以任意顺序置于牌堆顶 => 你可以摸 **X+1** 张牌（X 为角色数且至多为 4），然后将 X 张牌以任意顺序置于牌堆顶 **或牌堆底**
+
+**姬海棠果**
+
+**快照: **你可以令一名角色视为对另一名角色使用【知己知彼（国）】+,**然后前者摸一张牌**
+
+**爱丽丝**
+
+**人偶: **然后可以获得其中的一张装备牌 ~或~ 和一张与你装备区里的牌花色不同的牌
+
+**紫**
+
+**隙间: **结束阶段开始时，你可以选择两名 ~互不在对方攻击范围内的~ 角色
+
+**蕾蒂**
+
+冬至: +然后你摸 x/2 张牌
+
+**大妖精**
+
+半月: 失去 1 点体力**或弃一张牌**
+
+具现 : **限定技，**当**与你阵营相同的角色**进入濒死状态时，你可以**令其**亮出牌堆顶的三张牌并获得之，然后**其**回复 x 点体力（x 为其中的花色数）
+
+**森近霖之助**
+
+**+交易: **其他角色在你的回合获得牌后，其可以交给你一张手牌

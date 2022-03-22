@@ -886,7 +886,7 @@ public:
         } else if (isHegemonyGameMode(ServerInfo.GameMode)) {
             CardUseStruct use = data.value<CardUseStruct>();
             if (use.card != nullptr && use.card->isKindOf("Indulgence") && use.card->getSkillName() == "yege" && use.from != nullptr && use.from->hasSkill(this)
-                && use.from->isAlive() && use.card->getSuit() == Card::Diamond)
+                && use.from->isAlive() && use.card->getColor() == Card::Red)
                 d << SkillInvokeDetail(this, use.from, use.from, nullptr, true);
         }
         return d;

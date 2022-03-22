@@ -5898,7 +5898,7 @@ function SmartAI:needToLoseHp(to, from, isSlash, passive, recover)
 		end
 	end
 	if self:hasHeavySlashDamage(from, nil, to) then return false end
-	if to:hasSkill("pudu") and not recover then return false end
+	-- if to:hasSkill("pudu") and not recover then return false end
 	local n = getBestHp(to)
 
 	if not passive then

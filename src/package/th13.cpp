@@ -604,7 +604,7 @@ public:
         QStringList checkedPatterns = responsePatterns();
         if (checkedPatterns.contains("peach") && checkedPatterns.length() == 1 && player->getMark("Global_PreventPeach") > 0)
             return false;
-
+        
         return !checkedPatterns.isEmpty();
     }
 
@@ -638,7 +638,7 @@ public:
 
     bool isEnabledAtNullification(const ServerPlayer *player) const override
     {
-        if (player->isKongcheng())
+        // if (player->isKongcheng())
             return false;
         QString pattern = "nullification";
         if (XihuaClear::xihua_choice_limit(player, pattern, Card::MethodResponse))
@@ -755,7 +755,7 @@ public:
     Fengshui()
         : TriggerSkill("fengshui")
     {
-        events << StartJudge << Dying;
+        events << StartJudge ;
     }
 
     QList<SkillInvokeDetail> triggerable(TriggerEvent e, const Room *room, const QVariant &data) const override
@@ -766,7 +766,8 @@ public:
                 return QList<SkillInvokeDetail>();
         }
 
-        else if (e == Dying) {
+        else
+         if (e == Dying) {
             ServerPlayer *who = data.value<DyingStruct>().who;
             if (who == nullptr || who->getHp() >= who->dyingThreshold() || who->isDead())
                 return QList<SkillInvokeDetail>();

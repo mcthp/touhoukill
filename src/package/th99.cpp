@@ -1368,7 +1368,11 @@ public:
     {
         if (e == EventPhaseChanging)
             return QList<SkillInvokeDetail>();
-
+        foreach (ServerPlayer *p, room->getAllPlayers()) {
+                    if (p->getMark("@jijing") > room->getAlivePlayers().length()/2  ) {
+                       return QList<SkillInvokeDetail>();
+                    }
+                }
         DamageStruct damage = data.value<DamageStruct>();
         if (damage.from == nullptr || room->getCurrent() == nullptr || room->getCurrent()->isDead())
             return QList<SkillInvokeDetail>();
@@ -1377,7 +1381,7 @@ public:
         foreach (ServerPlayer *lunar, room->findPlayersBySkillName(objectName())) {
             if (lunar->isCurrent() && lunar == damage.from)
                 d << SkillInvokeDetail(this, lunar, lunar);
-            else if (damage.from->isCurrent() && lunar != damage.from)
+            else if (damage.from->isCurrent() && lunar != damage.from && !damage.from->isFriendWith(lunar,false))
                 d << SkillInvokeDetail(this, lunar, lunar);
         }
         return d;
@@ -1501,7 +1505,8 @@ public:
         invoke->invoker->tag["dubi_use"] = data; //for ai
         ServerPlayer *p = room->askForPlayerChosen(invoke->invoker, use.to, objectName(), prompt, true, true);
         if (p != nullptr) {
-            room->loseHp(invoke->invoker);
+            room->damage(DamageStruct("dubi", nullptr, invoke->invoker));
+            // room->loseHp(invoke->invoker);
             invoke->targets << p;
             return true;
         }

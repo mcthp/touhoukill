@@ -877,9 +877,15 @@ void XinshangCard::onEffect(const CardEffectStruct &effect) const
         room->setPlayerFlag(effect.from, "xinshang_effect");
     } else {
         if (effect.from->isAlive() && effect.from->canDiscard(effect.to, "hes")) {
-            room->throwCard(room->askForCardChosen(effect.from, effect.to, "hes", "xinshang", false, Card::MethodDiscard), effect.to, effect.from);
-            if (effect.from->isAlive() && effect.from->canDiscard(effect.to, "hes"))
-                room->throwCard(room->askForCardChosen(effect.from, effect.to, "hes", "xinshang", false, Card::MethodDiscard), effect.to, effect.from);
+
+            // room->throwCard(room->askForCardChosen(effect.from, effect.to, "hes", "xinshang", false, Card::MethodDiscard), effect.to, effect.from);
+            int id =  room->askForCardChosen(effect.from, effect.to, "hes", "xinshang", false, Card::MethodDiscard);
+            room->doAnimate(QSanProtocol::S_ANIMATE_INDICATE, effect.to->objectName(), effect.from->objectName());
+            room->notifySkillInvoked(effect.to, objectName());
+            room->touhouLogmessage("#InvokeSkill", effect.to, objectName());
+            room->obtainCard(effect.from, id, true);
+            // if (effect.from->isAlive() && effect.from->canDiscard(effect.to, "hes"))
+            //     room->throwCard(room->askForCardChosen(effect.from, effect.to, "hes", "xinshang", false, Card::MethodDiscard), effect.to, effect.from);
         }
     }
 }
@@ -1602,7 +1608,7 @@ void BujuCard::use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &) co
 {
     int x = qMin(room->alivePlayerCount(), 4);
 
-    source->drawCards(x);
+    source->drawCards(x+1);
     const Card *cards = room->askForExchange(source, "buju", x, x, true, "buju_exchange:" + QString::number(x));
     DELETE_OVER_SCOPE(const Card, cards)
     CardsMoveStruct move;
@@ -1610,7 +1616,7 @@ void BujuCard::use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &) co
     move.from = source;
     move.to_place = Player::DrawPile;
     room->moveCardsAtomic(move, false);
-    room->askForGuanxing(source, room->getNCards(x), Room::GuanxingUpOnly, "buju");
+    room->askForGuanxing(source, room->getNCards(x), Room::GuanxingBothSides, "buju");
 }
 
 class Buju : public ZeroCardViewAsSkill

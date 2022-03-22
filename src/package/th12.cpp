@@ -20,7 +20,8 @@ void PuduCard::onEffect(const CardEffectStruct &effect) const
     Room *room = effect.to->getRoom();
     RecoverStruct recover;
     room->recover(effect.to, recover);
-    room->loseHp(effect.from, 1);
+    if(effect.from->getHp() > 1){
+    room->loseHp(effect.from, 1);}
 }
 
 class Pudu : public ZeroCardViewAsSkill
@@ -848,7 +849,8 @@ public:
         : TriggerSkill("xunbao")
     {
         events << CardUsed << CardResponded;
-        frequency = Frequent;
+        frequency = Compulsory;
+
     }
 
     QList<SkillInvokeDetail> triggerable(TriggerEvent e, const Room *, const QVariant &data) const override
@@ -856,12 +858,12 @@ public:
         if (e == CardUsed) {
             CardUseStruct use = data.value<CardUseStruct>();
             if (use.from->hasSkill(this) && use.from->isAlive() && !use.card->isKindOf("SkillCard"))
-                return QList<SkillInvokeDetail>() << SkillInvokeDetail(this, use.from, use.from);
+                return QList<SkillInvokeDetail>() << SkillInvokeDetail(this, use.from, use.from, nullptr, true);
         }
         if (e == CardResponded) {
             CardResponseStruct response = data.value<CardResponseStruct>();
             if (response.m_from && response.m_from->isAlive() && response.m_from->hasSkill(this))
-                return QList<SkillInvokeDetail>() << SkillInvokeDetail(this, response.m_from, response.m_from);
+                return QList<SkillInvokeDetail>() << SkillInvokeDetail(this, response.m_from, response.m_from, nullptr, true);
         }
         return QList<SkillInvokeDetail>();
     }
@@ -880,13 +882,13 @@ public:
 
         QList<int> ids;
 
-        if (room->getDrawPile().length() < 2)
-            room->swapPile();
+//        if (room->getDrawPile().length() < 1)
+//            room->swapPile();
 
         const QList<int> &drawpile = room->getDrawPile();
         ids << drawpile.last();
-        if (drawpile.length() >= 2)
-            ids << drawpile.at(drawpile.length() - 2);
+//        if (drawpile.length() >= 1)
+//            ids << drawpile.at(drawpile.length() - 1);
         LogMessage l;
         l.type = "$xunbaoDrawpile";
         l.card_str = IntList2StringList(ids).join("+");
@@ -895,7 +897,7 @@ public:
         QList<int> able;
         QList<int> disable;
         foreach (int id, ids) {
-            if (Sanguosha->getCard(id)->getSuit() == card->getSuit())
+            if (Sanguosha->getCard(id)->getColor() == card->getColor())
                 able << id;
             else
                 disable << id;

@@ -397,7 +397,7 @@ public:
         if (damage.from && damage.from->isAlive() && damage.from->hasSkill(this)) {
             QList<SkillInvokeDetail> d;
             for (int i = 0; i < damage.damage; ++i)
-                d << SkillInvokeDetail(this, damage.from, damage.from);
+                d << SkillInvokeDetail(this, damage.from, damage.from, nullptr, true);
 
             return d;
         }
@@ -435,13 +435,13 @@ bool SuodingCard::targetFilter(const QList<const Player *> &targets, const Playe
             i++;
     }
 
-    maxVotes = qMax(3 - targets.size(), 0) + i;
+    maxVotes = qMax(2 - targets.size(), 0) + i;
     return maxVotes > 0;
 }
 
 bool SuodingCard::targetsFeasible(const QList<const Player *> &targets, const Player *) const
 {
-    if (targets.toSet().size() > 3 || targets.toSet().size() == 0)
+    if (targets.toSet().size() > 2 || targets.toSet().size() == 0)
         return false;
     QMap<const Player *, int> map;
 
@@ -511,15 +511,17 @@ public:
 
     QList<SkillInvokeDetail> triggerable(TriggerEvent triggerEvent, const Room *room, const QVariant &data) const override
     {
+          PhaseChangeStruct change = data.value<PhaseChangeStruct>();
+
         if (triggerEvent == EventPhaseChanging) {
-            PhaseChangeStruct change = data.value<PhaseChangeStruct>();
+            foreach (ServerPlayer *liege, room->getAlivePlayers()) {
+                if (!liege->getPile("suoding_cards").isEmpty() && room->getCurrent()== liege )
+                    return QList<SkillInvokeDetail>() << SkillInvokeDetail(this, nullptr, change.player, nullptr, true);
+            }
             if (change.to != Player::NotActive)
                 return QList<SkillInvokeDetail>();
 
-            foreach (ServerPlayer *liege, room->getAllPlayers()) {
-                if (!liege->getPile("suoding_cards").isEmpty())
-                    return QList<SkillInvokeDetail>() << SkillInvokeDetail(this, nullptr, change.player, nullptr, true);
-            }
+            
         }
         return QList<SkillInvokeDetail>();
     }
@@ -531,8 +533,8 @@ public:
         room->notifySkillInvoked(invoke->invoker, objectName());
         QList<CardsMoveStruct> moves;
 
-        foreach (ServerPlayer *liege, room->getAllPlayers()) {
-            if (!liege->getPile("suoding_cards").isEmpty()) {
+        foreach (ServerPlayer *liege, room->getAlivePlayers()) {
+            if (!liege->getPile("suoding_cards").isEmpty() && room->getCurrent()== liege) {
                 CardsMoveStruct move;
                 move.card_ids = liege->getPile("suoding_cards");
                 move.to_place = Player::PlaceHand;
@@ -1376,8 +1378,8 @@ public:
     QList<SkillInvokeDetail> triggerable(TriggerEvent, const Room *, const QVariant &data) const override
     {
         DamageStruct damage = data.value<DamageStruct>();
-        if (!damage.card || !damage.card->isBlack())
-            return QList<SkillInvokeDetail>();
+        // if (!damage.card || !damage.card->isBlack())
+        //     return QList<SkillInvokeDetail>();
 
         if (damage.to->isAlive() && damage.to->hasSkill(this))
             return QList<SkillInvokeDetail>() << SkillInvokeDetail(this, damage.to, damage.to);

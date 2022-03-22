@@ -1,0 +1,25 @@
+{
+  "files.associations": {
+    "chrono": "cpp",
+    "complex": "cpp",
+    "functional": "cpp",
+    "optional": "cpp",
+    "system_error": "cpp",
+    "type_traits": "cpp",
+    "xlocnum": "cpp",
+    "xtr1common": "cpp",
+    "locale": "cpp",
+    "thread": "cpp",
+    "xlocale": "cpp",
+    "xlocmes": "cpp",
+    "xlocmon": "cpp",
+    "xloctime": "cpp",
+    "xstring": "c",
+    "algorithm": "cpp",
+    "iterator": "cpp",
+    "xhash": "cpp",
+    "xtree": "cpp",
+    "xutility": "cpp",
+    "compare": "cpp"
+  }
+}
